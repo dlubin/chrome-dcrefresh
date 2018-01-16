@@ -5,6 +5,7 @@
   "description": "Tired of mashing f5 when your wifi hiccups? If so, this is the extension for you.",
   "version": "1.0",
   "permissions": [
+    "storage",
     "webRequest",
     "*://*/*"
   ],
@@ -18,5 +19,9 @@
   },
   "background": {
     "scripts": ["background.js"]
+  },
+  "options_ui":{
+    "page": "options.html",
+    "chrome_style":true
   }
 }
