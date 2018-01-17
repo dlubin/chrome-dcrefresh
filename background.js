@@ -1,6 +1,8 @@
 var continueAttempts = {};
+chrome.browserAction.setBadgeBackgroundColor({color: "#E01A10"});
 
-var callback = function (details) {
+
+var errorCallback = function (details) {
   if (details.error == "net::ERR_INTERNET_DISCONNECTED" && details.type == "main_frame") {
     var tabId = details.tabId || -1;
     var attempt = continueAttempts[tabId] || 1;
@@ -13,10 +15,15 @@ var callback = function (details) {
       var limit = items.attemptLimit;
       if(limit > 0 && attempt > limit){
         console.log("Attempt limit reached. Will not reload anymore");
+        setTimeout(function(){
+          chrome.browserAction.setBadgeText({text: "!", tabId: tabId});
+          chrome.browserAction.setTitle({title: "Attempt Limit Reached", tabId: tabId});
+        }, 1000);
         return;
       }
       var countdown = setInterval(function () {
         console.log(delay);
+        chrome.browserAction.setBadgeText({text: delay.toString(), tabId: tabId});
         if (delay <= 0) {
           continueAttempts[tabId] = attempt + 1;
           chrome.tabs.reload(tabId);
@@ -33,4 +40,4 @@ var callback = function (details) {
 var filter = { urls: ["<all_urls>"] };
 
 chrome.webRequest.onErrorOccurred.addListener(
-  callback, filter);
+  errorCallback, filter);
