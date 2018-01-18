@@ -47,8 +47,10 @@ document.addEventListener("DOMContentLoaded", function(){
    function(request, sender, sendResponse){
     if(request.message == "pause"){
        suspended[request.tab] = 1;
-     }else{
+     }else if(request.message == "unpause"){
         delete suspended[request.tab];
+     }else if(request.message == "getStatus"){
+       sendResponse({status: suspended[request.tab] == undefined ? "unpaused" : "paused"});
      }
    }
  );
