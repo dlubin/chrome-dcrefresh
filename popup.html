@@ -2,10 +2,22 @@
 <html>
     <head>
         <title>DCRefresh</title>
-        <style> a:focus { outline:none; } </style>
+        <style> 
+            a:focus { outline:none; } 
+            img {
+                padding-left: 30px;
+                padding-right: 30px;
+            } 
+            div { 
+                text-align: center;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                font-size: 10px;
+            }
+        </style>
     </head>
     <body>
         <a href="#" id="pausebtn"><img src="pausebtn.png" id="pauseimg"/></a>
+        <div id="note">Note: Pause will only work when a page is failing to load.</div>
         <script src="popup.js"></script>
     </body>
 </html>

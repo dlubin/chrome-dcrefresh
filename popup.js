@@ -10,6 +10,8 @@ window.onload = function(){
             if(state == "paused"){
                 var image = document.getElementById("pauseimg");
                 image.src = "resumebtn.png";
+                var note = document.getElementById("note");
+                note.innerText = "This will cause the page to reload.";
             }
         });
     });
@@ -24,13 +26,16 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 changeState = function(img){
+    var note = document.getElementById("note");
     if(state == "unpaused"){
         state = "paused";
         img.src = "resumebtn.png";
+        note.innerText = "Note: This will cause the page to reload.";
         chrome.runtime.sendMessage({"message":"pause", "tab":tabId});
-    }else{
+    }else if(state == "paused"){
         state ="unpaused";
         img.src = "pausebtn.png";
+        note.innerText = "Note: Pause will only work when a page is failing to load.";
         chrome.runtime.sendMessage({"message":"unpause", "tab":tabId});
     }
 }
