@@ -13,14 +13,15 @@ function save_options(){
     }, 750);
   });
 }
-
 function restore_options(){
   chrome.storage.sync.get({
     attemptDelay: 3,
-    attemptLimit
+    attemptLimit: -1
   }, function(items){
     document.getElementById("delay").value = items.attemptDelay;
-    document.getElementById("limit").value = items.attemptLimit;
+    if(items.attemptLimit > 0){
+      document.getElementById("limit").value = items.attemptLimit;
+    }
   });
 }
 
