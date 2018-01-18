@@ -1,12 +1,16 @@
 var continueAttempts = {};
+var suspended = {};
 chrome.browserAction.setBadgeBackgroundColor({color: "#E01A10"});
-
 
 var errorCallback = function (details) {
   if (details.error == "net::ERR_INTERNET_DISCONNECTED" && details.type == "main_frame") {
     var tabId = details.tabId || -1;
     var attempt = continueAttempts[tabId] || 1;
     console.log("DCR conditions met in tab " + tabId + " - attempt " + attempt);
+    if(suspended[tabId] != undefined){
+      console.log("Process suspended in tab");
+      return;
+    }
     chrome.storage.sync.get({
       attemptDelay: 5,
       attemptLimit: -1
@@ -22,7 +26,6 @@ var errorCallback = function (details) {
         return;
       }
       var countdown = setInterval(function () {
-        console.log(delay);
         chrome.browserAction.setBadgeText({text: delay.toString(), tabId: tabId});
         if (delay <= 0) {
           continueAttempts[tabId] = attempt + 1;
@@ -38,6 +41,18 @@ var errorCallback = function (details) {
 }
 
 var filter = { urls: ["<all_urls>"] };
+
+document.addEventListener("DOMContentLoaded", function(){
+  chrome.runtime.onMessage.addListener(
+   function(request, sender, sendResponse){
+    if(request.message == "pause"){
+       suspended[request.tab] = 1;
+     }else{
+        delete suspended[request.tab];
+     }
+   }
+ );
+});
 
 chrome.webRequest.onErrorOccurred.addListener(
   errorCallback, filter);

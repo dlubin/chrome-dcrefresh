@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "DCRefresh",
-  "description": "Tired of mashing f5 when your wifi hiccups? If so, this is the extension for you.",
+  "description": "Disconnect Refresh - If you're tired of spamming CTRL-R when your lousy internet dies, this extension was made for you.",
   "version": "1.0",
   "permissions": [
     "storage",
@@ -10,7 +10,8 @@
     "<all_urls>"
   ],
   "browser_action": {
-    "default_icon": "icon128.png"
+    "default_icon": "icon128.png",
+    "default_popup": "popup.html"
   },
   "icons": {
     "16": "icon16.png",
