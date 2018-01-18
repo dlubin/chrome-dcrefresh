@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "DCRefresh",
-  "description": "Disconnect Refresh - If you're tired of spamming CTRL-R when your lousy internet dies, this extension was made for you.",
+  "description": "Disconnect Refresh - Spams refresh when you internet stops working.",
   "version": "1.0",
   "permissions": [
     "storage",
