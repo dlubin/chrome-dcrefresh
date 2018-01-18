@@ -3,7 +3,7 @@ var suspended = {};
 chrome.browserAction.setBadgeBackgroundColor({color: "#E01A10"});
 
 var errorCallback = function (details) {
-  if (details.error == "net::ERR_INTERNET_DISCONNECTED" && details.type == "main_frame") {
+  if ((details.error == "net::ERR_INTERNET_DISCONNECTED" || details.error == "net::ERR_NAME_NOT_RESOLVED") && details.type == "main_frame") {
     var tabId = details.tabId || -1;
     var attempt = continueAttempts[tabId] || 1;
     console.log("DCR conditions met in tab " + tabId + " - attempt " + attempt);
@@ -16,7 +16,7 @@ var errorCallback = function (details) {
       return;
     }
     chrome.storage.sync.get({
-      attemptDelay: 5,
+      attemptDelay: 3,
       attemptLimit: -1
     },function(items){
       var delay = items.attemptDelay;

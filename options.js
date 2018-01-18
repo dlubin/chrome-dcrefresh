@@ -16,7 +16,7 @@ function save_options(){
 
 function restore_options(){
   chrome.storage.sync.get({
-    attemptDelay: 5,
+    attemptDelay: 3,
     attemptLimit
   }, function(items){
     document.getElementById("delay").value = items.attemptDelay;
