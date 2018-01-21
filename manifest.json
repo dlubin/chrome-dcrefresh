@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+
+  "name": "DCRefresh",
+  "description": "Tired of mashing f5 when your wifi hiccups? If so, this is the extension for you.",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": "icon-green.png",
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
